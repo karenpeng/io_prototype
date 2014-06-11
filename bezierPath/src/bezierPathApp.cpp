@@ -4,7 +4,6 @@
 #include "cinder/Rand.h"
 #include "cinder/Perlin.h"
 #include "content.h"
-#include "Thread.h"
 #include <iostream>
 #include <vector>
 
@@ -43,7 +42,7 @@ void Path2dApp::update(){
   
   thread.update();
   
-  if(frameCount == 0 || frameCount % 1400 == 0){
+  if(frameCount == 0 || frameCount % 600 == 0){
 //    Content* c = new Content(Vec3f(1300,randFloat(200,600),randFloat(-2,2)));
 //    mContents.push_back(c);
     
@@ -72,7 +71,9 @@ void Path2dApp::update(){
     //  c.update();
       //cout<< c.mLocation<<endl;
     //}
+    mContents[i].seek(thread.mPoints);
     mContents[i].update();
+
   }
   
 }
@@ -82,6 +83,10 @@ void Path2dApp::draw()
 	gl::clear( Color( 0.9f, 0.9f, 0.9f ) );
 	gl::enableAlphaBlending();
   
+  //gl::clear( Color( 0.0f, 0.9f, 0.9f ) );
+  gl::drawLine(Vec2f(0,200),Vec2f(1400,200));
+  gl::drawLine(Vec2f(0,400),Vec2f(1400,400));
+  gl::drawLine(Vec2f(0,600),Vec2f(1400,600));
   thread.draw();
 	 
 //  for(std::list<Content*>::iterator j = mContents.begin(); j != mContents.end();){

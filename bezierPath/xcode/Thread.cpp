@@ -26,7 +26,7 @@ Thread::Thread(){
 
 void Thread::setup(){
   for(int i=-1;i<6;i++){
-    mPoints.push_back(Vec2f(i*400, randFloat(300,500)));
+    mPoints.push_back(Vec2f(i*400+100, randFloat(300,500)));
   }
   noiseOff = randFloat(0,10);
   noiseOff1 = randFloat(0,10);
@@ -43,7 +43,7 @@ void Thread::update(){
     
     //float oldY = mPoints[j].y;
     
-    mPoints[j].y = noise.fBm(mPoints[j].x, noiseOff)*600 + 400;
+    mPoints[j].y = noise.fBm(mPoints[j].x, noiseOff)*400 + 400;
     
     //mPoints[j].y = noise.fBm(mPoints[j].x, noiseOff)*400+sin(mPoints[j].x+noiseOff1)*400+200;
     
@@ -78,10 +78,10 @@ void Thread::update(){
 void Thread::draw(){
   if(!mPath.empty()){
     gl::color( Color( 1, 1, 0 ) );
-//    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
-//      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
-//    }
-    gl::color( Color( 0.8f, 0.8f, 0.8f ) );
+    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
+      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
+    }
+    gl::color( Color( 0.7f, 0.7f, 0.7f ) );
     gl::draw( mPath );
   }
 }
