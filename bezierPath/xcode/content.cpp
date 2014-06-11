@@ -20,12 +20,12 @@ Content::Content(){
 
 Content::Content( Vec3f loc){
   mLocation = loc;
-  mVelocity = Vec3f(0,0,0);
-  w = randFloat(300,700);
+  mVelocity = Vec3f(randFloat(-0.6,-0.5),randFloat(-0.1,0.1),0);
+  w = randFloat(300,600);
   h = randFloat(200,400);
   Rectf block;
   block = Rectf(0,0,w,h);
-  seekIndex = 0;
+  seekIndex = 6;
   attracted = false;
 }
 
@@ -34,39 +34,21 @@ bool Content::die(){
 }
 
 void Content::seek(vector<Vec2f> aPoints){
-//   float disX = abs(mLocation.x - aPoints[seekIndex].x);
-//  cout<< seekIndex << disX << endl;
-//   if(disX > 1600 ){
-//     Vec2f dir = aPoints[seekIndex] - Vec2f(mLocation.x, mLocation.y);
-//     dir.safeNormalize();
-//
-//     attracted = true;
-//     //cout<< seekIndex <<endl;
-//     return dir/300;
-//   }else{
-//     seekIndex ++;
-//     attracted = false;
-//     return Vec2f(0,0);
-//   }
+
   float disX = mLocation.x - aPoints[seekIndex].x;
-  if(disX>0){
+  cout<< disX<<endl;
+  if(disX>-10){
     Vec2f dir = aPoints[seekIndex] - Vec2f(mLocation.x, mLocation.y);
-    mLocation += 0.001 * Vec3f(dir.x,dir.y,0);
+    mLocation += 0.0005 * Vec3f(dir.x,dir.y,0);
     attracted = true;
   }else{
-    seekIndex ++;
+    seekIndex --;
     attracted = false;
   }
+  if(seekIndex < 0 ){
+    seekIndex = 7;
+  }
   
-//  Vec2f dir = aPoints[seekIndex] - Vec2f(mLocation.x, mLocation.y);
-//    if( disX > 1600 ){
-//    mLocation += 0.001 * Vec3f(dir.x,dir.y,0);
-//    attracted = true;
-//  }else{
-//    seekIndex ++;
-//    attracted = false;
-//  }
-
 }
 
 
@@ -80,11 +62,11 @@ void Content::update(){
 }
 
 void Content::draw(){
-  if(attracted){
+  //if(attracted){
   gl::color(1.0f,1.0f,1.0f);
-  }else{
-  gl::color(0.9f,0.0f,1.0f);
-  }
+  //}else{
+  //gl::color(0.9f,0.0f,1.0f);
+  //}
   gl::pushMatrices();
   //gl::translate(Vec3f (mLocation.x, mLocation.y, mLocation.z));
   gl::drawSolidRect(block);

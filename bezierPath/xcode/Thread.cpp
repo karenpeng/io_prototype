@@ -25,8 +25,8 @@ Thread::Thread(){
 //}
 
 void Thread::setup(){
-  for(int i=-1;i<6;i++){
-    mPoints.push_back(Vec2f(i*400+100, randFloat(300,500)));
+  for(int i=0;i<7;i++){
+    mPoints.push_back(Vec2f(i*400-300, randFloat(300,500)));
   }
   noiseOff = randFloat(0,10);
   noiseOff1 = randFloat(0,10);

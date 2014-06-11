@@ -42,7 +42,7 @@ void Path2dApp::update(){
   
   thread.update();
   
-  if(frameCount == 0 || frameCount % 600 == 0){
+  if(frameCount == 0 || frameCount % 1000 == 0){
 //    Content* c = new Content(Vec3f(1300,randFloat(200,600),randFloat(-2,2)));
 //    mContents.push_back(c);
     
