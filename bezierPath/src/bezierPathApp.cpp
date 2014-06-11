@@ -2,6 +2,7 @@
 #include "cinder/Path2d.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
+#include "cinder/Perlin.h"
 #include "content.h"
 #include "Thread.h"
 #include <iostream>
@@ -42,11 +43,11 @@ void Path2dApp::update(){
   
   thread.update();
   
-  if(frameCount == 0 || frameCount % 1200 == 0){
+  if(frameCount == 0 || frameCount % 1400 == 0){
 //    Content* c = new Content(Vec3f(1300,randFloat(200,600),randFloat(-2,2)));
 //    mContents.push_back(c);
     
-    mContents.push_back( Content(Vec3f(1500,randFloat(100,600),randFloat(-2,2))));
+    mContents.push_back( Content(Vec3f(1800,randFloat(200,600),randFloat(-2,2))));
     //cout<< "there" <<endl;
 
   }

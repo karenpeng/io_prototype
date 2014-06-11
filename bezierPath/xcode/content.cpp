@@ -20,8 +20,8 @@ Content::Content(){
 Content::Content( Vec3f loc){
   mLocation = loc;
   mVelocity = Vec3f(randFloat(-0.6,-0.2),0,0);
-  w = randFloat(300,600);
-  h = randFloat(200,300);
+  w = randFloat(300,700);
+  h = randFloat(200,400);
   Rectf block;
   block = Rectf(0,0,w,h);;
 }

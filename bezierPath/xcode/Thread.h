@@ -13,6 +13,7 @@
 //#include "cinder/Thread.h"
 #include "cinder/Vector.h"
 #include "cinder/Path2d.h"
+#include "cinder/Perlin.h"
 
 #endif /* defined(__bezierPath__Thread__) */
 
@@ -28,5 +29,7 @@ class Thread{
   void setup();
   void update();
   void draw();
-  
+  float noiseOff;
+  float noiseOff1;
+  Perlin noise;
 };
