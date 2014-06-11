@@ -13,8 +13,6 @@
 //#include "cinder/Thread.h"
 #include "cinder/Vector.h"
 #include "cinder/Path2d.h"
-#include "cinder/gl/gl.h"
-#include "cinder/Rand.h"
 
 #endif /* defined(__bezierPath__Thread__) */
 

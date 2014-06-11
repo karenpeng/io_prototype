@@ -3,6 +3,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
 #include "content.h"
+#include "Thread.h"
 #include <iostream>
 #include <vector>
 
@@ -20,6 +21,7 @@ class Path2dApp : public AppBasic {
   
   //list<Content*> mContents;
   vector<Content> mContents;
+  Thread thread = Thread();
   int frameCount = 0;
 };
 
@@ -32,11 +34,15 @@ void Path2dApp::setup(){
   //Content* c = new Content(Vec3f(1300,randFloat(200,600),randFloat(-2,2)));
   //mContents.push_back(c);
   //cout<< "here" <<endl;
+  thread.setup();
 }
 
 
 void Path2dApp::update(){
-  if(frameCount == 0 || frameCount % 600 == 0){
+  
+  thread.update();
+  
+  if(frameCount == 0 || frameCount % 1200 == 0){
 //    Content* c = new Content(Vec3f(1300,randFloat(200,600),randFloat(-2,2)));
 //    mContents.push_back(c);
     
@@ -74,6 +80,8 @@ void Path2dApp::draw()
 {
 	gl::clear( Color( 0.9f, 0.9f, 0.9f ) );
 	gl::enableAlphaBlending();
+  
+  thread.draw();
 	 
 //  for(std::list<Content*>::iterator j = mContents.begin(); j != mContents.end();){
 //    (*j)->draw();
