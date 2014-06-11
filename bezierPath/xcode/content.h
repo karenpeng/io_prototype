@@ -10,26 +10,22 @@
 #define __bezierPath__content__
 #include <iostream>
 #include "cinder/Vector.h"
-#include "cinder/Path2d.h"
-#include "cinder/gl/gl.h"
-#include "cinder/Rand.h"
 #include "cinder/Rect.h"
 #endif /* defined(__bezierPath__content__) */
 
 
 using namespace ci;
-//using namespace ci::app;
 
 class Content{
 public:
   Content();
-  Content(Vec2f loc);
-  Vec2f mLocation;
-  Vec2f mVelocity;
+  Content(Vec3f loc);
+  Vec3f mLocation;
+  Vec3f mVelocity;
   float w;
   float h;
   Rectf block;
-  void setup();
+  bool die();
   void update();
   void draw();
   

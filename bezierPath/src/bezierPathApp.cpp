@@ -3,7 +3,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
 #include "content.h"
-
+#include <iostream>
 #include <vector>
 
 using namespace ci;
@@ -12,71 +12,78 @@ using namespace std;
 
 class Path2dApp : public AppBasic {
  public:
-	//Path2dApp() : mTrackedPoint( -1 ) {}
-	
 
 	void prepareSettings(Settings *settings );
   void setup();
   void update();
 	void draw();
   
+  //list<Content*> mContents;
   vector<Content> mContents;
-	
-	Path2d	mPath;
-	//int		mTrackedPoint;
   int frameCount = 0;
-  float initX = 800;
-  Vec2f prePoint = Vec2f(initX,100);
-  Vec2f ranPoint;
 };
 
 void Path2dApp::prepareSettings( Settings *settings ){
-  settings->setWindowSize( 1200, 800 );
+  settings->setWindowSize( 1400, 800 );
   settings->setFrameRate( 60.0f );
 }
 
 void Path2dApp::setup(){
-  mContents = vector<Content>();
-  mContents.push_back(Content(prePoint));
-  mPath.moveTo( mContents[0].mLocation );
-  initX -= randFloat(10,200);
+  //Content* c = new Content(Vec3f(1300,randFloat(200,600),randFloat(-2,2)));
+  //mContents.push_back(c);
+  //cout<< "here" <<endl;
 }
 
+
 void Path2dApp::update(){
-  frameCount ++;
-  if(frameCount % 120 == 0){
-    ranPoint = Vec2f(initX,randFloat(100,500));
-    mContents.push_back(Content(ranPoint));
-    float deltaX = prePoint.x - ranPoint.x;
-    initX -= randFloat(10,200);
+  if(frameCount == 0 || frameCount % 600 == 0){
+//    Content* c = new Content(Vec3f(1300,randFloat(200,600),randFloat(-2,2)));
+//    mContents.push_back(c);
     
-    mPath.curveTo(Vec2f(ranPoint.x+deltaX/3,prePoint.y), Vec2f(ranPoint.x+deltaX*2/3,ranPoint.y),  ranPoint);
-    prePoint = ranPoint;
+    mContents.push_back( Content(Vec3f(1500,randFloat(100,600),randFloat(-2,2))));
+    //cout<< "there" <<endl;
+
   }
   
-  for(int i = 0; i< mContents.size();i++){
+  frameCount ++;
+  
+//  for(std::list<Content*>::iterator i = mContents.begin(); i != mContents.end();){
+//    Content* c = (*i);
+//    if(c->die()){
+//      i = mContents.erase(i);
+//      delete c;
+//    }else{
+//      c->update();
+//      ++i;
+//    }
+//  }
+  for(int i=0; i< mContents.size();i++){
+    //Content c = mContents[i];
+    //if(c.die()){
+      //mContents.erase(i);
+    //}else{
+    //  c.update();
+      //cout<< c.mLocation<<endl;
+    //}
     mContents[i].update();
   }
+  
 }
 
 void Path2dApp::draw()
 {
-	gl::clear( Color( 0.0f, 0.1f, 0.2f ) );
+	gl::clear( Color( 0.9f, 0.9f, 0.9f ) );
 	gl::enableAlphaBlending();
-	
-	// draw the control points
-  if(!mPath.empty()){
-	gl::color( Color( 1, 1, 0 ) );
-	for( size_t p = 0; p < mPath.getNumPoints(); ++p )
-		gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
-
-
-	gl::color( Color( 1.0f, 0.5f, 0.25f ) );
-	gl::draw( mPath );
-  }
-  
-  for(int i=0;i<mContents.size();i++){
+	 
+//  for(std::list<Content*>::iterator j = mContents.begin(); j != mContents.end();){
+//    (*j)->draw();
+//    }
+  for(int i=0; i< mContents.size();i++){
+    //Content c = mContents[i];
+    //gl::pushMatrices();
+    //c.draw();
     mContents[i].draw();
+    //gl::popMatrices();
   }
 }
 

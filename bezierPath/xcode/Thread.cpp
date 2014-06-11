@@ -11,7 +11,6 @@
 #include "cinder/Path2d.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
-#include "cinder/Rect.h"
 
 using namespace ci;
 using namespace std;

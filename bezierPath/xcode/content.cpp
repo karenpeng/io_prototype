@@ -6,36 +6,44 @@
 //
 //
 #include "cinder/Vector.h"
-#include "cinder/Path2d.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
 #include "content.h"
 #include "cinder/Rect.h"
 
 using namespace ci;
+using namespace std;
+
 Content::Content(){
-
 }
 
-Content::Content( Vec2f loc){
-
+Content::Content( Vec3f loc){
   mLocation = loc;
-  mVelocity = Vec2f(-0.6,0);
-  w = randFloat(100,200);
-  h = randFloat(20,200);
+  mVelocity = Vec3f(randFloat(-0.6,-0.2),0,0);
+  w = randFloat(300,600);
+  h = randFloat(200,300);
   Rectf block;
+  block = Rectf(0,0,w,h);;
 }
 
-void Content::setup(){
-
+bool Content::die(){
+  return mLocation.x < -w/2;
 }
 
 void Content::update(){
   mLocation += mVelocity;
   block = Rectf(mLocation.x-w/2,mLocation.y-h/2,mLocation.x+w/2,mLocation.y+h/2);
+  cout<< mLocation<<endl;
+
 }
 
 void Content::draw(){
-  gl::color(0.5f,1.0f,1.0f);
+  gl::color(1.0f,1.0f,1.0f);
+  gl::pushMatrices();
+  //gl::translate(Vec3f (mLocation.x, mLocation.y, mLocation.z));
   gl::drawSolidRect(block);
+  glLineWidth(2.0);
+  gl::color( 0.8f, 0.8f, 0.8f );
+  gl::drawStrokedRect(block);
+  gl::popMatrices();
 }
