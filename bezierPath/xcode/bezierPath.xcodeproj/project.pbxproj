@@ -14,6 +14,8 @@
 		00C073A10FF3304B004801EA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C0739D0FF3304B004801EA /* AudioToolbox.framework */; };
 		00C073A20FF3304B004801EA /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C0739E0FF3304B004801EA /* AudioUnit.framework */; };
 		00C073A30FF3304B004801EA /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C0739F0FF3304B004801EA /* CoreAudio.framework */; };
+		1D57EBCA194A20C4001B8D9D /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1D57EBC8194A20C4001B8D9D /* Particle.cpp */; };
+		1D57EBCD194A2541001B8D9D /* Particle Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1D57EBCB194A2541001B8D9D /* Particle Controller.cpp */; };
 		1DC8BE8D19478E7300A1F956 /* content.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1DC8BE8B19478E7300A1F956 /* content.cpp */; };
 		1DC8BE901947A61900A1F956 /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1DC8BE8E1947A61900A1F956 /* Thread.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
@@ -32,6 +34,10 @@
 		00C0739F0FF3304B004801EA /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1D57EBC8194A20C4001B8D9D /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
+		1D57EBC9194A20C4001B8D9D /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
+		1D57EBCB194A2541001B8D9D /* Particle Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "Particle Controller.cpp"; sourceTree = "<group>"; };
+		1D57EBCC194A2541001B8D9D /* Particle Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle Controller.h"; sourceTree = "<group>"; };
 		1DC8BE8B19478E7300A1F956 /* content.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = content.cpp; sourceTree = "<group>"; };
 		1DC8BE8C19478E7300A1F956 /* content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = content.h; sourceTree = "<group>"; };
 		1DC8BE8E1947A61900A1F956 /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Thread.cpp; sourceTree = "<group>"; };
@@ -75,6 +81,10 @@
 				1DC8BE8F1947A61900A1F956 /* Thread.h */,
 				1DC8BE8B19478E7300A1F956 /* content.cpp */,
 				1DC8BE8C19478E7300A1F956 /* content.h */,
+				1D57EBC8194A20C4001B8D9D /* Particle.cpp */,
+				1D57EBC9194A20C4001B8D9D /* Particle.h */,
+				1D57EBCB194A2541001B8D9D /* Particle Controller.cpp */,
+				1D57EBCC194A2541001B8D9D /* Particle Controller.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -215,6 +225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				00BAE65A0E7ED9C10018A608 /* bezierPathApp.cpp in Sources */,
+				1D57EBCA194A20C4001B8D9D /* Particle.cpp in Sources */,
+				1D57EBCD194A2541001B8D9D /* Particle Controller.cpp in Sources */,
 				1DC8BE8D19478E7300A1F956 /* content.cpp in Sources */,
 				1DC8BE901947A61900A1F956 /* Thread.cpp in Sources */,
 			);

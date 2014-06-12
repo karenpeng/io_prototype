@@ -27,7 +27,7 @@ Content::Content( Vec3f loc){
   h = randFloat(300,540);
   Rectf block;
   block = Rectf(0,0,w,h);
-  seekIndex = 6;
+  seekIndex = 5;
   attracted = false;
 }
 
@@ -38,7 +38,7 @@ bool Content::die(){
 void Content::seek(vector<Vec2f> aPoints){
 
   float disX = mLocation.x - aPoints[seekIndex].x;
-  cout<< disX<<endl;
+  //cout<< disX<<endl;
   if(disX > 0){
     Vec2f dir = aPoints[seekIndex] - Vec2f(mLocation.x, mLocation.y);
     mLocation += 0.0002 * Vec3f(dir.x,dir.y,0);

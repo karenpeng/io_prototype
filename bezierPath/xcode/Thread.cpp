@@ -13,8 +13,8 @@
 #include "cinder/Perlin.h"
 #include "Thread.h"
 
-#define   windowWidth 1400
-#define   windowHeight 800
+#define   windowWidth 1600
+#define   windowHeight 900
 
 using namespace ci;
 using namespace std;
@@ -26,22 +26,22 @@ Thread::Thread(){
 
 void Thread::setup(){
   for(int i=0;i<5;i++){
-    mPoints.push_back(Vec2f(i* windowWidth/4+100, randFloat(200,600)));
+    mPoints.push_back(Vec2f(i*windowWidth/2, randFloat(200,600)));
   }
   noiseOff = randFloat(0,10);
 }
 
 void Thread::update(){
-
+  
   for(int j =0;j<mPoints.size();j++){
-    mPoints[j].y = noise.fBm(mPoints[j].x*0.0005, noiseOff)*(windowHeight/4+200 )+ windowHeight/2;
+    mPoints[j].y = noise.fBm(mPoints[j].x*0.0005, noiseOff)*windowWidth/3 + 400;
     noiseOff += 0.000001 ;
     mPoints[j].x -- ;
   }
   
   //if the point is too left from the screen, put it to the right of the screen
-  if(mPoints[0].x < -(windowWidth/4+100)){
-    mPoints[0].x = 5*(windowWidth/4+100);
+  if(mPoints[0].x < -windowWidth / 2){
+    mPoints[0].x = 4 * windowWidth / 2;
     Vec2f copyPoint0 = mPoints[0];
     //swap the order
     for(int k =0;k<mPoints.size()-1;k++){
@@ -68,10 +68,10 @@ void Thread::update(){
 void Thread::draw(){
   if(!mPath.empty()){
     gl::color( Color( 1, 1, 0 ) );
-//    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
-//      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
-//    }
-    gl::color( Color( 0.6f, 0.6f, 0.6f ) );
+    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
+      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
+    }
+    gl::color( Color( 0.8f, 0.8f, 0.8f ) );
     gl::draw( mPath );
   }
 }
