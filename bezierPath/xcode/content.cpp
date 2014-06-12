@@ -11,6 +11,8 @@
 #include "content.h"
 #include "cinder/Rect.h"
 #include <vector>
+#define   windowWidth 1400
+#define   windowHeight 800
 
 using namespace ci;
 using namespace std;

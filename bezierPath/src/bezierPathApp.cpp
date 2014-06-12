@@ -7,6 +7,9 @@
 #include <iostream>
 #include <vector>
 
+#define   windowWidth 1400
+#define   windowHeight 800
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -26,7 +29,7 @@ class Path2dApp : public AppBasic {
 };
 
 void Path2dApp::prepareSettings( Settings *settings ){
-  settings->setWindowSize( 1400, 800 );
+  settings->setWindowSize( windowWidth, windowHeight );
   settings->setFrameRate( 60.0f );
 }
 
@@ -40,7 +43,7 @@ void Path2dApp::update(){
   thread.update();
   
   if(frameCount == 0 || frameCount % 600 == 0){
-    mContents.push_back( Content(Vec3f(1800,randFloat(400,500),randFloat(-2,2))));
+    mContents.push_back( Content(Vec3f(windowWidth+200,randFloat(windowHeight/2, windowHeight/2+100),randFloat(-2,2))));
   }
   
   frameCount ++;

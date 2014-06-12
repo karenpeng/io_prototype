@@ -13,6 +13,9 @@
 #include "cinder/Perlin.h"
 #include "Thread.h"
 
+#define   windowWidth 1400
+#define   windowHeight 800
+
 using namespace ci;
 using namespace std;
 
@@ -23,7 +26,7 @@ Thread::Thread(){
 
 void Thread::setup(){
   for(int i=0;i<5;i++){
-    mPoints.push_back(Vec2f(i*700, randFloat(200,600)));
+    mPoints.push_back(Vec2f(i* windowWidth/4+100, randFloat(200,600)));
   }
   noiseOff = randFloat(0,10);
 }
@@ -31,14 +34,14 @@ void Thread::setup(){
 void Thread::update(){
 
   for(int j =0;j<mPoints.size();j++){
-    mPoints[j].y = noise.fBm(mPoints[j].x*0.0005, noiseOff)*600 + 400;
+    mPoints[j].y = noise.fBm(mPoints[j].x*0.0005, noiseOff)*(windowHeight/4+200 )+ windowHeight/2;
     noiseOff += 0.000001 ;
     mPoints[j].x -- ;
   }
   
   //if the point is too left from the screen, put it to the right of the screen
-  if(mPoints[0].x < -700){
-    mPoints[0].x = 2800;
+  if(mPoints[0].x < -(windowWidth/4+100)){
+    mPoints[0].x = 5*(windowWidth/4+100);
     Vec2f copyPoint0 = mPoints[0];
     //swap the order
     for(int k =0;k<mPoints.size()-1;k++){
