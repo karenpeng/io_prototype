@@ -31,10 +31,11 @@ public:
   Rectf block;
   bool die();
   void update();
-  void seek(vector<Vec2f> aPoints);
+  Vec2f seek(vector<Vec2f> aPoints);
   void addForce(Vec2f aForce);
   void draw();
   int seekIndex;
   bool attracted;
+  float maxSpeed;
 };
 

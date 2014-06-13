@@ -8,10 +8,10 @@
 #include <iostream>
 #include <vector>
 
-#define NUM_PARTICLES_PER_FRAME 4
+#define NUM_PARTICLES_PER_FRAME 2
 
-#define   windowWidth 1600
-#define   windowHeight 900
+#define   windowWidth 1200
+#define   windowHeight 700
 
 using namespace ci;
 using namespace ci::app;
@@ -52,15 +52,19 @@ void Path2dApp::setup(){
 
 void Path2dApp::update(){
   
-  cout<<thread.mPoints.size()<<endl;
+  //cout<<thread.mPoints.size()<<endl;
+  cout<<(float)app::getFrameRate()<<endl;
 
-  if(frameCount % 10 == 0){
-  controller->addParticles(NUM_PARTICLES_PER_FRAME, Vec2f(randFloat(0,windowWidth),randFloat(windowHeight*3/8,windowHeight*5/8)), Vec2f(randFloat(),randFloat()));
+  if(frameCount % 30 == 0){
+  //float xPos = lerp( windowWidth, 0, pow(0,windowWidth+ 20));
+  //float xPos = randFloat(windowWidth-20,windowWidth+20);
+    float xPos = randFloat(windowWidth, windowWidth+200);
+  controller->addParticles(NUM_PARTICLES_PER_FRAME, Vec2f(xPos,randFloat(windowHeight*3/8,windowHeight*5/8)), Vec2f(randFloat(),randFloat()));
   }
   thread.update();
   
-  if(frameCount == 0 || frameCount % 600 == 0){
-    Content *c = new Content(Vec3f(windowWidth+200,randFloat(windowHeight/4, windowHeight*3/4),randFloat(-2,2)));
+  if(frameCount == 0 || frameCount % 200 == 0){
+    Content *c = new Content(Vec3f(windowWidth+200,randFloat(windowHeight/4, windowHeight*3/4),randFloat(-1.0,-1.0)));
     mContents.push_back(c);
   }
   
@@ -73,7 +77,8 @@ void Path2dApp::update(){
       i = mContents.erase(i);
       delete c;
     }else{
-      c->seek(thread.mPoints);
+      Vec2f steer = c->seek(thread.mPoints);
+      c->addForce(steer);
       c->update();
       ++i;
     }
@@ -85,7 +90,7 @@ void Path2dApp::update(){
   
   mLastTime = currentTime;
   
-	this->controller->update(delta,  mPerlin);
+	this->controller->update(delta, mPerlin, thread.mPoints);
   
 }
 

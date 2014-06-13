@@ -23,9 +23,9 @@ using namespace std;
 class ParticleController {
 public:
   void setup();
-  void update(float delta, Perlin &perlin);
+  void update(float delta, Perlin &perlin, vector<Vec2f> aPoints);
   void draw();
-  void addParticles(int amt, const Vec2i &position, const Vec2i &velocity);
+  void addParticles(int amt, const Vec2f &position, const Vec2f &velocity);
   void removeParticles(int amt);
   
   list<Particle*> mParticles;

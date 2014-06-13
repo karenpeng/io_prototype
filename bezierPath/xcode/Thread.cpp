@@ -34,7 +34,7 @@ void Thread::setup(){
 void Thread::update(){
   
   for(int j =0;j<mPoints.size();j++){
-    mPoints[j].y = noise.fBm(mPoints[j].x*0.0005, noiseOff)*windowWidth/3 + 400;
+    mPoints[j].y = noise.fBm(mPoints[j].x*0.0005, noiseOff)*(windowWidth/3+60) + 400;
     noiseOff += 0.000001 ;
     mPoints[j].x -- ;
   }
@@ -68,9 +68,9 @@ void Thread::update(){
 void Thread::draw(){
   if(!mPath.empty()){
     gl::color( Color( 1, 1, 0 ) );
-    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
-      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
-    }
+//    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
+//      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
+//    }
     gl::color( Color( 0.8f, 0.8f, 0.8f ) );
     gl::draw( mPath );
   }

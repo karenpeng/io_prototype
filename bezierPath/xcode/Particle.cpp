@@ -9,11 +9,16 @@
 #include "Particle.h"
 #include "cinder/Color.h"
 #include "cinder/app/App.h"
+#include "cinder/Vector.h"
+#include "cinder/CinderMath.h"
 
 #define RADIUS_MIN 8.0f
 #define RADIUS_MAX 64.0f
 #define RADIUS_POW 12.0f
-#define FLAP_LIFESPAN 20
+#define FLAP_LIFESPAN 60
+
+#define   windowWidth 1200
+#define   windowHeight 700
 
 using namespace ci;
 
@@ -56,10 +61,11 @@ Particle::~Particle() {
 void Particle::setup(const Vec2f &position, const Vec2f &velocity) {
   mPosition = Vec3f(position, 0.0f);
   mVelocity = Vec3f(velocity, 0.0f);
+  mAcceleration = Vec3f(0.0f, 0.0f, 0.0f);
   
   mAge = 0;
   mFlapLifespan = randInt(FLAP_LIFESPAN - 5, FLAP_LIFESPAN + 5);
-  mLifespan = mFlapLifespan * randInt(5, 7);
+  mLifespan = mFlapLifespan * randInt(11, 13);
   mVecolityDecay = 0.99f;
   //  mRadius = RADIUS * (RADIUS_MIN_QUOTA + (1.0f - RADIUS_MIN_QUOTA) * pow(randFloat(), RADIUS_POW));
   mRadius = lerp(RADIUS_MIN, RADIUS_MAX, pow(randFloat(), RADIUS_POW));
@@ -75,15 +81,15 @@ void Particle::setup(const Vec2f &position, const Vec2f &velocity) {
   int numShapes = sizeof(Shapes) / sizeof(*Shapes);
   int shapeIndex = randInt(numShapes);
   mShape = Shapes[shapeIndex];
+  
+  seekIndex = 4;
+  maxSpeed = 10;
 }
 
 void Particle::update(float delta, Perlin &perlin) {
-  const float noise = perlin.fBm(mPosition * 0.005f + app::getElapsedSeconds() * Vec3f(0.1f, 0.1f, 0.1f));
-  const float angle = noise * 15.0f;
   
-  mVelocity += 0.1f * Vec3f(cos(angle), sin(angle) - 0.3f, 2.0f * sin(angle) - 0.5f);
-  mPosition += delta * mVelocity;
-  mVelocity *= mVecolityDecay;
+  mVelocity += mAcceleration;
+  mPosition += mVelocity;
   
   mAge += 1;
   
@@ -91,6 +97,33 @@ void Particle::update(float delta, Perlin &perlin) {
   if (mAge >= mLifespan) {
     mIsDead = true;
   }
+  
+  mAcceleration = Vec3f(0,0,0);
+}
+
+void Particle::addForce(Vec2f aForce){
+  mAcceleration += Vec3f(aForce.x, aForce.y, 0);
+}
+
+Vec2f Particle::seek(vector<Vec2f> aPoints){
+
+  float minDis= windowWidth * 2;
+  for(int i = aPoints.size()-1; i >= 0; i--){
+    float dis = aPoints[i].distance( Vec2f(mPosition.x, mPosition.y) );
+    if(dis < minDis) {
+      seekIndex = i;
+      minDis = dis;
+    }
+  }
+
+  Vec2f dir = aPoints[seekIndex] - Vec2f(mPosition.x, mPosition.y);
+
+  Vec2f steer = dir - Vec2f( mVelocity.x, mVelocity.y);
+  steer.normalize();
+  steer *= maxSpeed;
+  steer.x = randFloat(-6.0f, -2.2f);
+
+  return steer* 0.006;
 }
 
 void Particle::draw() {
@@ -126,7 +159,7 @@ void Particle::draw() {
   
   const float directionTheta = atan2(mVelocity.y, mVelocity.x) + M_PI_2;
   const float directionThetaDeg = 180.0f * directionTheta / M_PI;
-  gl::rotate(directionImpact * Vec3f(0.0f, 0.0f, directionThetaDeg));
+  //gl::rotate(directionImpact * Vec3f(0.0f, 0.0f, directionThetaDeg));
   
   //  const float directionPhi = atan2(mVelocity.z, mVelocity.x) + M_PI_2;
   //  const float directionPhiDeg = 180.0f * directionPhi / M_PI;

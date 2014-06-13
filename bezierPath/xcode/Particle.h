@@ -43,10 +43,14 @@ public:
   
   void setup(const Vec2f &position, const Vec2f &velocity);
   void update(float delta, Perlin &perlin);
+  Vec2f seek(vector<Vec2f> aPoints);
+  void addForce(Vec2f aForce);
   void draw();
+  float maxSpeed;
   
   Vec3f mPosition;
   Vec3f mVelocity;
+  Vec3f mAcceleration;
   
   float mRadius;
   float mVecolityDecay;
@@ -66,5 +70,6 @@ public:
   
 private:
   static Color colorFromInt(const uint32_t rgb);
+  int seekIndex;
 };
 
