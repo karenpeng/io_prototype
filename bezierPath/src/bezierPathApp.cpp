@@ -7,15 +7,21 @@
 #include "Particle Controller.h"
 #include <iostream>
 #include <vector>
+#include "cinder/ImageIo.h"
+#include "cinder/gl/Texture.h"
 
-#define NUM_PARTICLES_PER_FRAME 2
+//#include "Header.h"
+//#include "cinder/blocks/SimpeGUI/SimpeGUI.h"
 
-#define   windowWidth 1200
-#define   windowHeight 700
+#define NUM_PARTICLES_PER_FRAME 1
+
+#define   windowWidth 1280
+#define   windowHeight 1280*7/12
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
+//using namespace mowa::sgui;
 
 class Path2dApp : public AppBasic {
  public:
@@ -35,6 +41,8 @@ private:
   Vec2i mouseVelocity;
   double mLastTime;
   int frameCount = 0;
+  gl::Texture mImage;
+  int postIndex = 0;
 };
 
 void Path2dApp::prepareSettings( Settings *settings ){
@@ -47,13 +55,14 @@ void Path2dApp::setup(){
   controller = new ParticleController();
   controller->setup();
   mPerlin = Perlin();
+  mImage = gl::Texture( loadImage( loadResource( "header.png" ) ) );
 }
 
 
 void Path2dApp::update(){
   
   //cout<<thread.mPoints.size()<<endl;
-  cout<<(float)app::getFrameRate()<<endl;
+  //cout<<(float)app::getFrameRate()<<endl;
 
   if(frameCount % 30 == 0){
   //float xPos = lerp( windowWidth, 0, pow(0,windowWidth+ 20));
@@ -63,9 +72,11 @@ void Path2dApp::update(){
   }
   thread.update();
   
-  if(frameCount == 0 || frameCount % 200 == 0){
-    Content *c = new Content(Vec3f(windowWidth+200,randFloat(windowHeight/4, windowHeight*3/4),randFloat(-1.0,-1.0)));
+  if(frameCount == 0 || frameCount % 620 == 0){
+    Content *c = new Content(Vec3f(windowWidth+200,randFloat(windowHeight*3/8, windowHeight*5/8),randFloat(-1.0,-1.0)),postIndex);
     mContents.push_back(c);
+    postIndex ++;
+    if(postIndex>6) postIndex = 0;
   }
   
   frameCount ++;
@@ -96,14 +107,20 @@ void Path2dApp::update(){
 
 void Path2dApp::draw()
 {
-	gl::clear( Color( 0.96f, 0.96f, 0.96f ) );
+	gl::clear( Color( 245.0f/255.0f, 245.0f/255.0f, 245.0f/255.0f ) );
 	gl::enableAlphaBlending();
+  
+   gl::color(Color::white());
+  
+  if(mImage){
+    gl::draw( mImage, Area(0,0,1280,60) );
+  }
 
   thread.draw();
   
-  gl::pushMatrices();
+  //gl::pushMatrices();
   this->controller->draw();
-  gl::popMatrices();
+  //gl::popMatrices();
 	 
   for(std::list<Content*>::iterator i = mContents.begin(); i!= mContents.end(); i++){
     Content *c = (*i);

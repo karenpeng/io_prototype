@@ -5,6 +5,7 @@
 //  Created by Karen Peng on 6/10/14.
 //
 //
+#include "cinder/app/App.h"
 #include "cinder/Vector.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
@@ -12,19 +13,23 @@
 #include "cinder/Rect.h"
 #include "cinder/CinderMath.h"
 #include <vector>
+#include "cinder/ImageIo.h"
+#include "cinder/gl/Texture.h"
+#include "cinder/Area.h"
 
-#define   windowWidth 1200
-#define   windowHeight 700
+#define   windowWidth 1280
+#define   windowHeight 1280*7/12
 
 using namespace ci;
+using namespace ci::app;
 using namespace std;
 
 Content::Content(){
 }
 
-Content::Content( Vec3f loc){
+Content::Content( Vec3f loc, int postIndex){
   mLocation = loc;
-  mVelocity = Vec3f(randFloat(-2.0,-1.6),randFloat(-0.1,0.1),0);
+  mVelocity = Vec3f(randFloat(-0.8,-0.74),randFloat(-0.1,0.1),0);
   w = randFloat(200,340);
   h = randFloat(300,540);
   Rectf block;
@@ -32,6 +37,21 @@ Content::Content( Vec3f loc){
   seekIndex = 4;
   attracted = false;
   maxSpeed = 0.002f;
+  angle = 20.0f;
+
+  string names[7] = {
+    "post_image_square.png",
+    "post_image_tall.png",
+    "post_image_wide.png",
+    "post_text_01.png",
+    "post_text_02.png",
+    "post_text_03.png",
+    "post_text_04.png"
+  };
+  
+  mImage = gl::Texture( loadImage( ci::app::loadResource( names[postIndex] ) ) );
+  w = mImage.getWidth();
+  h = mImage.getHeight();  
 }
 
 bool Content::die(){
@@ -54,9 +74,9 @@ Vec2f Content::seek(vector<Vec2f> aPoints){
   steer.safeNormalize();
   //steer.x = constrain(steer.x, -1.2f, -0.4f);
   steer *= maxSpeed;
-  steer.x = randFloat(-0.002, -0.0006);
+  steer.x = 0;
   attracted = true;
-  return steer*0.5;
+  return steer*0.1;
 
 }
 
@@ -67,22 +87,33 @@ void Content::addForce(Vec2f force){
 void Content::update(){
   mVelocity += mAccerleration;
   mLocation += mVelocity;
-  mLocation.y = constrain( mLocation.y, 100.0f, windowHeight-200.0f );
-  block = Rectf(mLocation.x-w/2,mLocation.y-h/2,mLocation.x+w/2,mLocation.y+h/2);
+  mLocation.y = constrain( mLocation.y, 100.0f, windowHeight-300.0f );
+  block = Rectf((float)mLocation.x-w/2,(float)mLocation.y-h/2,(float)mLocation.x+w/2,(float)mLocation.y+h/2);
   mAccerleration = Vec3f(0,0,0);
+  if(mLocation.x< windowWidth ){
+    angle -= 0.1;
+    if(angle<= 0.0f) angle = 0.0f;
+  }
 }
 
 void Content::draw(){
+  gl::enableAlphaBlending();
 //  if(!attracted){
   gl::color(1.0f,1.0f,1.0f);
 //  }else{
 //  gl::color(0.9f,0.0f,1.0f);
 //  }
   gl::pushMatrices();
-  //gl::translate(Vec3f (mLocation.x, mLocation.y, mLocation.z));
-  gl::drawSolidRect(block);
-  glLineWidth(2.0);
-  gl::color( 0.8f, 0.8f, 0.8f );
-  gl::drawStrokedRect(block);
+//  gl::translate(Vec2f (-mLocation.x,-mLocation.y));
+//  gl::translate(Vec2f (w/2, h/2));
+//  //gl::rotate(Vec3f(0, angle, 0));
+//  gl::translate(Vec2f (-w/2, -h/2));
+ // gl::translate(Vec2f (mLocation.x,mLocation.y));
+  //gl::drawSolidRect(block);
+  //glLineWidth(2.0);
+ // gl::color( 0.8f, 0.8f, 0.8f );
+  gl::draw( mImage, block );
+  //gl::drawStrokedRect(block);
+ // gl::translate(Vec2f (-mLocation.x,-mLocation.y));
   gl::popMatrices();
 }

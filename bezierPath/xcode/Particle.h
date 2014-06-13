@@ -19,6 +19,7 @@
 #include "cinder/Vector.h"
 #include "cinder/Rand.h"
 #include "cinder/Perlin.h"
+#include "cinder/Color.h"
 
 #include <iostream>
 #include <list>
@@ -38,19 +39,22 @@ public:
     HEXAGON,
     CIRCLE
   };
-  static const Color Colors[];
+  //static const Color Colors[];
+  static const Color myColors[5][4];
+  
   static const Shape Shapes[];
   
   void setup(const Vec2f &position, const Vec2f &velocity);
   void update(float delta, Perlin &perlin);
-  Vec2f seek(vector<Vec2f> aPoints);
   void addForce(Vec2f aForce);
+  Vec2f seek(vector<Vec2f> aPoints);
   void draw();
-  float maxSpeed;
   
   Vec3f mPosition;
   Vec3f mVelocity;
   Vec3f mAcceleration;
+  float maxSpeed;
+  int seekIndex;
   
   float mRadius;
   float mVecolityDecay;
@@ -70,6 +74,5 @@ public:
   
 private:
   static Color colorFromInt(const uint32_t rgb);
-  int seekIndex;
 };
 

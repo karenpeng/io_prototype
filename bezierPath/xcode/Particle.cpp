@@ -13,15 +13,59 @@
 #include "cinder/CinderMath.h"
 
 #define RADIUS_MIN 8.0f
-#define RADIUS_MAX 64.0f
-#define RADIUS_POW 12.0f
-#define FLAP_LIFESPAN 60
+#define RADIUS_MAX 46.0f
+#define RADIUS_POW 2.0f
+#define FLAP_LIFESPAN 70
 
-#define   windowWidth 1200
-#define   windowHeight 700
+#define   windowWidth 1280
+#define   windowHeight 1280*7/12
 
 using namespace ci;
 
+const Particle::Shape Particle::Shapes[] = {
+  Particle::Shape::TRIANGLE,
+  Particle::Shape::SQUARE,
+  Particle::Shape::HEXAGON,
+  Particle::Shape::CIRCLE
+};
+
+using namespace ci;
+using namespace ci::app;
+
+const Color Particle::myColors[5][4] = {
+  {
+    Particle::colorFromInt(0x5133A5),
+    Particle::colorFromInt(0x673FB4),
+    Particle::colorFromInt(0x6BFEDA),
+    Particle::colorFromInt(0x96FEDA)
+  },
+  
+  {
+    Particle::colorFromInt(0x7A27A0),
+    Particle::colorFromInt(0x9A2EAE),
+    Particle::colorFromInt(0xFC5457),
+    Particle::colorFromInt(0xFF5353)
+  },
+  {
+    Particle::colorFromInt(0x1688CE),
+    Particle::colorFromInt(0x1DAAF1),
+    Particle::colorFromInt(0x34FFFE),
+    Particle::colorFromInt(0x19FFFF)
+  },
+  {
+    Particle::colorFromInt(0x1797A6),
+    Particle::colorFromInt(0x1FBCD2),
+    Particle::colorFromInt(0xEEFD54),
+    Particle::colorFromInt(0xEEFF41)
+  },
+  {
+    Particle::colorFromInt(0xF37C22),
+    Particle::colorFromInt(0xFD9727),
+    Particle::colorFromInt(0xFC4482),
+    Particle::colorFromInt(0xFF4181)
+  }
+};
+/*
 const Color Particle::Colors[] = {
   Particle::colorFromInt(0xdb4437),
   Particle::colorFromInt(0xe91e63),
@@ -40,16 +84,7 @@ const Color Particle::Colors[] = {
   Particle::colorFromInt(0xff9800),
   Particle::colorFromInt(0xff5722)
 };
-const Particle::Shape Particle::Shapes[] = {
-  Particle::Shape::TRIANGLE,
-  Particle::Shape::SQUARE,
-  Particle::Shape::HEXAGON,
-  Particle::Shape::CIRCLE
-};
-
-using namespace ci;
-using namespace ci::app;
-
+*/
 Particle::Particle() {
   
 }
@@ -65,18 +100,22 @@ void Particle::setup(const Vec2f &position, const Vec2f &velocity) {
   
   mAge = 0;
   mFlapLifespan = randInt(FLAP_LIFESPAN - 5, FLAP_LIFESPAN + 5);
-  mLifespan = mFlapLifespan * randInt(11, 13);
+  mLifespan = mFlapLifespan * randInt(14, 19);
   mVecolityDecay = 0.99f;
   //  mRadius = RADIUS * (RADIUS_MIN_QUOTA + (1.0f - RADIUS_MIN_QUOTA) * pow(randFloat(), RADIUS_POW));
   mRadius = lerp(RADIUS_MIN, RADIUS_MAX, pow(randFloat(), RADIUS_POW));
-  
   mIsDead = false;
   
-  int numColors = sizeof(Colors) / sizeof(*Colors);
+  int numColors = sizeof(myColors) / sizeof(*myColors);
   int colorIndex = randInt(numColors- 1);
   
-  mColorA = Colors[colorIndex];
-  mColorB = Colors[colorIndex + 1];
+  int colorAIndex = randInt(0,4);
+  int colorBIndex = randInt(0,4);
+  while(colorBIndex == colorAIndex){
+    colorBIndex = randInt(0,4);
+  }
+  mColorA = myColors[colorIndex][colorAIndex];
+  mColorB = myColors[colorIndex][colorBIndex];
   
   int numShapes = sizeof(Shapes) / sizeof(*Shapes);
   int shapeIndex = randInt(numShapes);
@@ -101,9 +140,13 @@ void Particle::update(float delta, Perlin &perlin) {
   mAcceleration = Vec3f(0,0,0);
 }
 
+
+
 void Particle::addForce(Vec2f aForce){
   mAcceleration += Vec3f(aForce.x, aForce.y, 0);
 }
+
+
 
 Vec2f Particle::seek(vector<Vec2f> aPoints){
 
@@ -121,10 +164,12 @@ Vec2f Particle::seek(vector<Vec2f> aPoints){
   Vec2f steer = dir - Vec2f( mVelocity.x, mVelocity.y);
   steer.normalize();
   steer *= maxSpeed;
-  steer.x = randFloat(-6.0f, -2.2f);
+  steer.x = randFloat(-0.4f, -0.1f);
 
-  return steer* 0.006;
+  return steer* 0.0015;
 }
+
+
 
 void Particle::draw() {
   int flapAge = mAge % mFlapLifespan;
@@ -150,20 +195,21 @@ void Particle::draw() {
   
   const float rectRadius = mRadius * 0.5f;
   
+  gl::popMatrices();
   gl::pushModelView();
   
   gl::translate(mPosition);
   
   // rotate according to direction
-  const float directionImpact = 0.5f;
+//  const float directionImpact = 0.5f;
   
-  const float directionTheta = atan2(mVelocity.y, mVelocity.x) + M_PI_2;
-  const float directionThetaDeg = 180.0f * directionTheta / M_PI;
-  //gl::rotate(directionImpact * Vec3f(0.0f, 0.0f, directionThetaDeg));
+//  const float directionTheta = atan2(mVelocity.y, mVelocity.x) + M_PI_2;
+//  const float directionThetaDeg = 180.0f * directionTheta / M_PI;
+//  gl::rotate(directionImpact * Vec3f(0.0f, 0.0f, directionThetaDeg));
   
-  //  const float directionPhi = atan2(mVelocity.z, mVelocity.x) + M_PI_2;
-  //  const float directionPhiDeg = 180.0f * directionPhi / M_PI;
-  //  gl::rotate(directionImpact * Vec3f(directionPhiDeg, 0.0f, 0.0f));
+//    const float directionPhi = atan2(mVelocity.z, mVelocity.x) + M_PI_2;
+//    const float directionPhiDeg = 180.0f * directionPhi / M_PI;
+    gl::rotate(Vec3f(0.0f, 0.0f, 172.0f * M_PI_2));
   
   // top (only draw after one flap)
   if (mAge >= mFlapLifespan) {
@@ -209,7 +255,7 @@ void Particle::draw() {
   if (mAge < mLifespan) {
     
     gl::color(flapColor);
-    gl::rotate(Vec3f(180.0f * flapProgress, 0.0f, 0.0f));
+    gl::rotate(Vec3f( 180.0f * flapProgress,0.0f, 0.0f));
     
     switch (mShape) {
       case SQUARE:
@@ -228,6 +274,7 @@ void Particle::draw() {
   }
   
   gl::popModelView();
+  gl::popMatrices();
 }
 
 /**

@@ -13,7 +13,7 @@
 
 #define SPRAY 128.0f
 #define MAX_VELOCITY 16.0f
-#define LEFTDRIFT 3.0f
+#define LEFTDRIFT 1.0f
 
 void ParticleController::setup() {
 }

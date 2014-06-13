@@ -13,8 +13,8 @@
 #include "cinder/Perlin.h"
 #include "Thread.h"
 
-#define   windowWidth 1600
-#define   windowHeight 900
+#define   windowWidth 1280
+#define   windowHeight 1280*7/12
 
 using namespace ci;
 using namespace std;
@@ -34,7 +34,7 @@ void Thread::setup(){
 void Thread::update(){
   
   for(int j =0;j<mPoints.size();j++){
-    mPoints[j].y = noise.fBm(mPoints[j].x*0.0005, noiseOff)*(windowWidth/3+60) + 400;
+    mPoints[j].y = noise.fBm(mPoints[j].x*0.0005, noiseOff)*(windowWidth/2) + windowHeight/2 + 100;
     noiseOff += 0.000001 ;
     mPoints[j].x -- ;
   }
