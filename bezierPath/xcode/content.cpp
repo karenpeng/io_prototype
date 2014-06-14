@@ -106,14 +106,14 @@ void Content::draw(){
   gl::pushMatrices();
 //  gl::translate(Vec2f (-mLocation.x,-mLocation.y));
 //  gl::translate(Vec2f (w/2, h/2));
-//  //gl::rotate(Vec3f(0, angle, 0));
+//  gl::rotate(Vec3f(0, angle, 0));
 //  gl::translate(Vec2f (-w/2, -h/2));
- // gl::translate(Vec2f (mLocation.x,mLocation.y));
-  //gl::drawSolidRect(block);
-  //glLineWidth(2.0);
- // gl::color( 0.8f, 0.8f, 0.8f );
-  gl::draw( mImage, block );
-  //gl::drawStrokedRect(block);
- // gl::translate(Vec2f (-mLocation.x,-mLocation.y));
+//  gl::translate(Vec2f (mLocation.x,mLocation.y));
+//  gl::drawSolidRect(block);
+//  glLineWidth(2.0);
+//  gl::color( 0.8f, 0.8f, 0.8f );
+    gl::draw( mImage, block );
+//  gl::drawStrokedRect(block);
+//  gl::translate(Vec2f (-mLocation.x,-mLocation.y));
   gl::popMatrices();
 }
