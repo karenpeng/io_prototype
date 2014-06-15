@@ -30,6 +30,5 @@ class Thread{
   void update();
   void draw();
   float noiseOff;
-  float noiseOff1;
   Perlin noise;
 };

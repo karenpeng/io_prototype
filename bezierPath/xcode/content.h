@@ -13,6 +13,8 @@
 #include "cinder/Vector.h"
 #include "cinder/Rect.h"
 #include "Thread.h"
+#include "cinder/gl/Texture.h"
+#include "cinder/ImageIo.h"
 #endif /* defined(__bezierPath__content__) */
 
 
@@ -22,19 +24,24 @@ using namespace std;
 class Content{
 public:
   Content();
-  Content(Vec3f loc);
+  Content(Vec3f loc, int postIndex);
   Vec3f mLocation;
   Vec3f mVelocity;
   Vec3f mAccerleration;
-  float w;
-  float h;
   Rectf block;
   bool die();
   void update();
-  void seek(vector<Vec2f> aPoints);
+  Vec2f seek(vector<Vec2f> aPoints);
   void addForce(Vec2f aForce);
   void draw();
   int seekIndex;
   bool attracted;
+  float maxSpeed;
+  float angle;
+  gl::Texture mImage;
+  int32_t w;
+  int32_t h;
+//  float w;
+//  float h;
 };
 
