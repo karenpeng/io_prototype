@@ -78,9 +78,9 @@ void Thread::update(){
 void Thread::draw(){
   if(!mPath.empty()){
     gl::color( Color( 1, 1, 0 ) );
-    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
-      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
-    }
+//    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
+//      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
+//    }
     gl::color( Color( 0.7f, 0.7f, 0.7f ) );
     gl::draw( mPath );
   }

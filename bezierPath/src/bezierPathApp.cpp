@@ -84,9 +84,9 @@ void Path2dApp::draw()
 	gl::enableAlphaBlending();
   
   //gl::clear( Color( 0.0f, 0.9f, 0.9f ) );
-  gl::drawLine(Vec2f(0,200),Vec2f(1400,200));
-  gl::drawLine(Vec2f(0,400),Vec2f(1400,400));
-  gl::drawLine(Vec2f(0,600),Vec2f(1400,600));
+//  gl::drawLine(Vec2f(0,200),Vec2f(1400,200));
+//  gl::drawLine(Vec2f(0,400),Vec2f(1400,400));
+//  gl::drawLine(Vec2f(0,600),Vec2f(1400,600));
   thread.draw();
 	 
 //  for(std::list<Content*>::iterator j = mContents.begin(); j != mContents.end();){
