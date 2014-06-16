@@ -29,15 +29,10 @@ Content::Content(){
 
 Content::Content( Vec3f loc, int postIndex){
   mLocation = loc;
-<<<<<<< HEAD
-  mVelocity = Vec3f(randFloat(-0.5,-0.4),randFloat(-0.1,0.1),0);
-  w = randFloat(300,600);
-  h = randFloat(200,400);
-=======
+
   mVelocity = Vec3f(randFloat(-0.8,-0.74),randFloat(-0.1,0.1),0);
   w = randFloat(200,340);
   h = randFloat(300,540);
->>>>>>> 1c0b20c1c2e4d19c0c2be957e5ce3efd5efdd45e
   Rectf block;
   block = Rectf(0,0,w,h);
   seekIndex = 4;

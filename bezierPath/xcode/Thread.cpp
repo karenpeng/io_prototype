@@ -71,11 +71,8 @@ void Thread::draw(){
 //    for( size_t p = 0; p < mPath.getNumPoints(); ++p ){
 //      gl::drawSolidCircle( mPath.getPoint( p ), 2.5f );
 //    }
-<<<<<<< HEAD
+
     gl::color( Color( 0.7f, 0.7f, 0.7f ) );
-=======
-    gl::color( Color( 0.8f, 0.8f, 0.8f ) );
->>>>>>> 1c0b20c1c2e4d19c0c2be957e5ce3efd5efdd45e
     gl::draw( mPath );
   }
 }

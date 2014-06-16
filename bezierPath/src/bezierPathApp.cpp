@@ -109,20 +109,13 @@ void Path2dApp::draw()
 {
 	gl::clear( Color( 245.0f/255.0f, 245.0f/255.0f, 245.0f/255.0f ) );
 	gl::enableAlphaBlending();
-  
-<<<<<<< HEAD
-  //gl::clear( Color( 0.0f, 0.9f, 0.9f ) );
-//  gl::drawLine(Vec2f(0,200),Vec2f(1400,200));
-//  gl::drawLine(Vec2f(0,400),Vec2f(1400,400));
-//  gl::drawLine(Vec2f(0,600),Vec2f(1400,600));
-=======
+
    gl::color(Color::white());
   
   if(mImage){
     gl::draw( mImage, Area(0,0,1280,60) );
   }
 
->>>>>>> 1c0b20c1c2e4d19c0c2be957e5ce3efd5efdd45e
   thread.draw();
   
   //gl::pushMatrices();

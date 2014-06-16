@@ -5,31 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-<<<<<<< HEAD
-	<string>AC98B8C4-EDD0-45AB-8C32-1D1A272AAB7C</string>
-=======
-	<string>5EF40961-F84B-428E-92F0-E2ECEA70C95A</string>
->>>>>>> 1c0b20c1c2e4d19c0c2be957e5ce3efd5efdd45e
+	<string>7DE811BB-5401-4F0F-839D-F72E7D39BE16</string>
 	<key>IDESourceControlProjectName</key>
 	<string>bezierPath</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-<<<<<<< HEAD
 		<key>8FDFBB46-C97C-46E2-AD2E-C562C430BAB0</key>
-=======
-		<key>7BB28510-BD5D-4174-8D74-5346F338355F</key>
->>>>>>> 1c0b20c1c2e4d19c0c2be957e5ce3efd5efdd45e
 		<string>ssh://github.com/karenpeng/aaaaa.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>bezierPath/xcode/bezierPath.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-<<<<<<< HEAD
 		<key>8FDFBB46-C97C-46E2-AD2E-C562C430BAB0</key>
-=======
-		<key>7BB28510-BD5D-4174-8D74-5346F338355F</key>
->>>>>>> 1c0b20c1c2e4d19c0c2be957e5ce3efd5efdd45e
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -37,26 +25,16 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-<<<<<<< HEAD
 	<string>8FDFBB46-C97C-46E2-AD2E-C562C430BAB0</string>
-=======
-	<string>7BB28510-BD5D-4174-8D74-5346F338355F</string>
->>>>>>> 1c0b20c1c2e4d19c0c2be957e5ce3efd5efdd45e
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-<<<<<<< HEAD
 			<string>8FDFBB46-C97C-46E2-AD2E-C562C430BAB0</string>
 			<key>IDESourceControlWCCName</key>
 			<string>aaaaa</string>
-=======
-			<string>7BB28510-BD5D-4174-8D74-5346F338355F</string>
-			<key>IDESourceControlWCCName</key>
-			<string>experiment</string>
->>>>>>> 1c0b20c1c2e4d19c0c2be957e5ce3efd5efdd45e
 		</dict>
 	</array>
 </dict>
